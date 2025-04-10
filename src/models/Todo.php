@@ -14,9 +14,9 @@ class Todo {
     public string $title;
     public ?string $description;
     public bool $completed = false;
-    public string $create_date {
+    public ?string $create_date {
         get {
-            return date('Y-m-d h:i:s', strtotime($this->create_date));
+            return isset($this->create_date) ? date('Y-m-d h:i:s', strtotime($this->create_date)) : null;
         }
         set {
             $this->create_date = $value;
@@ -24,7 +24,7 @@ class Todo {
     }
     public ?string $update_date {
         get {
-            return date('Y-m-d h:i:s', strtotime($this->create_date));
+            return isset($this->update_date) ? date('Y-m-d h:i:s', strtotime($this->create_date)) : null;
         }
         set {
             $this->update_date = $value;
@@ -32,7 +32,7 @@ class Todo {
     }
     public ?string $due_date {
         get {
-            return date('Y-m-d', strtotime($this->create_date));
+            return isset($this->due_date) ? date('Y-m-d', strtotime($this->create_date)) : null;
         }
         set {
             $this->due_date = $value;
@@ -160,14 +160,14 @@ class Todo {
 
         $new_title = $new_title ? self::sanitize($new_title) : null;
         $new_description = $new_description ? self::sanitize($new_description) : null;
-        $new_completed = $new_completed ?: null;
+        $new_completed = $new_completed ?: false;
 
         $query = <<<EOS
             UPDATE todos
             SET 
                 title = COALESCE(:new_title, title), 
                 description = COALESCE(:new_description, description), 
-                completed = COALESCE(:new_completed, completed),
+                completed = :new_completed,
                 due_date = COALESCE(:new_due_date, due_date)
             WHERE id = :id;
         EOS;
@@ -178,7 +178,7 @@ class Todo {
                 ':id' => (int)$this->id,
                 ':new_title' => $new_title,
                 ':new_description' => $new_description,
-                ':new_completed' => $new_completed,
+                ':new_completed' => (int)$new_completed,
                 ':new_due_date' => $new_due_date
             ]);
 
