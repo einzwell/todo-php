@@ -62,7 +62,7 @@ switch ($_POST['_method'] ?? $_SERVER['REQUEST_METHOD']) {
             $todo_id = $_PUT['todo_id'];
             $title = $_PUT['title'] ?: null;
             $description = $_PUT['description'] ?: null;
-            $completed = isset($_PUT['completed']) && $_PUT['completed'] == "true";
+            $completed = isset($_PUT['completed']);
             $due_date = $_PUT['due_date'] ?: null;
 
             $todo = Todo::get_by_id($todo_id);
@@ -219,7 +219,7 @@ switch ($_POST['_method'] ?? $_SERVER['REQUEST_METHOD']) {
                             <!-- Body -->
                             <div class="card-body">
                                 <p class="card-text text-truncate">
-                                    <?php echo !empty($todo_item->description) ? nl2br($todo_item->description) : '<span class="text-muted fst-italic">No description</span>'; ?>
+                                    <?php echo !empty($todo_item->description) ? str_replace('\n', '', $todo_item->description) : '<span class="text-muted fst-italic">No description</span>'; ?>
                                 </p>
                             </div>
                         </div>
@@ -266,24 +266,27 @@ switch ($_POST['_method'] ?? $_SERVER['REQUEST_METHOD']) {
                                                    id="completed<?php echo $todo_item->id; ?>"
                                                    name="completed" <?php echo $todo_item->completed ? 'checked' : ''; ?>>
                                             <label class="form-check-label"
-                                                   for="completed<?php echo $todo_item->id; ?>">Mark as
-                                                completed</label>
+                                                   for="completed<?php echo $todo_item->id; ?>">Mark as completed</label>
                                         </div>
                                         <small class="text-muted d-block">
                                             <i class="fas fa-play me-1"></i>
                                             Created: <?php echo $todo_item->create_date ?? 'N/A'; ?>
                                         </small>
-                                        <small class="text-muted d-block">
-                                            <i class="fas fa-edit me-1"></i>
-                                            Updated: <?php echo $todo_item->update_date; ?>
-                                        </small>
-                                        <small class="text-muted d-block">
-                                            <?php echo $todo_item->completed ?
-                                                '<i class="fas fa-check-circle text-success me-1"></i>Completed' :
-                                                (time() > strtotime($todo_item->due_date) ?
-                                                    '<i class="fas fa-circle-xmark me-1"></i> Past Due Date' :
-                                                    '<i class="fas fa-clock me-1"></i> Pending'); ?>
-                                        </small>
+                                        <?php if (isset($todo_item->update_date)): ?>
+                                            <small class="text-muted d-block">
+                                                <i class="fas fa-edit me-1"></i>
+                                                Updated: <?php echo $todo_item->update_date; ?>
+                                            </small>
+                                        <?php endif; ?>
+                                        <?php if (isset($todo_item->due_date)): ?>
+                                            <small class="text-muted d-block">
+                                                <?php echo $todo_item->completed ?
+                                                    '<i class="fas fa-check-circle text-success me-1"></i>Completed' :
+                                                    (time() > strtotime($todo_item->due_date) ?
+                                                        '<i class="fas fa-circle-xmark me-1"></i> Past Due Date' :
+                                                        '<i class="fas fa-clock me-1"></i> Pending'); ?>
+                                            </small>
+                                        <?php endif; ?>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-danger me-auto" data-bs-toggle="modal"
@@ -345,23 +348,17 @@ switch ($_POST['_method'] ?? $_SERVER['REQUEST_METHOD']) {
                                     <input type="hidden" name="due_date" value="<?php echo $todo_item->due_date; ?>">
 
                                     <div class="modal-header">
-                                        <h5 class="modal-title">
-                                            <?php echo $todo_item->completed ? 'Mark as Incomplete' : 'Mark as Complete'; ?>
-                                        </h5>
+                                        <h5 class="modal-title"><b>Mark as Complete</b></h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <p>Are you sure you want to mark this todo
-                                            as <?php echo $todo_item->completed ? 'incomplete' : 'complete'; ?>?</p>
+                                        <p>Are you sure you want to mark this todo as complete?</p>
                                         <p><strong><?php echo $todo_item->title; ?></strong></p>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel
                                         </button>
-                                        <button type="submit"
-                                                class="btn <?php echo $todo_item->completed ? 'btn-warning' : 'btn-success'; ?>">
-                                            <?php echo $todo_item->completed ? 'Mark as Incomplete' : 'Mark as Complete'; ?>
-                                        </button>
+                                        <button type="submit" class="btn btn-primary">Mark as Complete</button>
                                     </div>
                                 </form>
                             </div>
@@ -394,8 +391,8 @@ switch ($_POST['_method'] ?? $_SERVER['REQUEST_METHOD']) {
                                             <div class="card todo-card border-success">
                                                 <div class="card-header d-flex justify-content-between align-items-center bg-success text-white">
                                                     <!-- Title -->
-                                                    <h5 class="card-title mb-0 todo-completed">
-                                                        <b class="text-truncate"><?php echo $todo_item->title; ?></b>
+                                                    <h5 class="card-title mb-0 todo-completed text-truncate">
+                                                        <b><?php echo $todo_item->title; ?></b>
                                                     </h5>
                                                     <div class="d-flex justify-content-end align-items-center">
                                                         <!-- Due Date Pill -->
@@ -462,8 +459,7 @@ switch ($_POST['_method'] ?? $_SERVER['REQUEST_METHOD']) {
                                                                        id="completed<?php echo $todo_item->id; ?>"
                                                                        name="completed" <?php echo $todo_item->completed ? 'checked' : ''; ?>>
                                                                 <label class="form-check-label"
-                                                                       for="completed<?php echo $todo_item->id; ?>">Mark as
-                                                                    completed</label>
+                                                                       for="completed<?php echo $todo_item->id; ?>">Mark as completed</label>
                                                             </div>
                                                             <small class="text-muted d-block">
                                                                 <i class="fas fa-play me-1"></i>
