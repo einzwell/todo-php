@@ -9,15 +9,16 @@ services:
     depends_on:
       - database
     volumes:
+      - ./src:/var/www/src:z
       - ./public:/var/www/html:Z
     ports:
       - "8000:80"
+    env_file: .env
   database:
     container_name: todo-db
     image: mariadb
     restart: always
-    env_file:
-      - .env
+    env_file: .env
     ports:
       - "3306:3306"
     volumes:

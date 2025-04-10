@@ -1,4 +1,4 @@
-FROM php:8.2.27-apache
+FROM php:8.4-apache
 RUN apt update && apt install -y vim git libzip-dev zip unzip npm
 RUN docker-php-ext-install pdo pdo_mysql zip
 RUN chown -R www-data:www-data /var/www && chmod -R 755 /var/www/html
