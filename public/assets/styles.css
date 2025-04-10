@@ -1,0 +1,15 @@
+.todo-completed {
+    opacity: 0.7;
+}
+
+[data-bs-toggle="collapse"] {
+    cursor: pointer;
+}
+
+#completedTasks .card {
+    opacity: 0.8;
+}
+
+#completedTasks .card:hover {
+    opacity: 1;
+}
