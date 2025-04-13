@@ -24,7 +24,7 @@ class Todo {
     }
     public ?string $update_date {
         get {
-            return isset($this->update_date) ? date('Y-m-d h:i:s', strtotime($this->create_date)) : null;
+            return isset($this->update_date) ? date('Y-m-d h:i:s', strtotime($this->update_date)) : null;
         }
         set {
             $this->update_date = $value;
@@ -32,7 +32,7 @@ class Todo {
     }
     public ?string $due_date {
         get {
-            return isset($this->due_date) ? date('Y-m-d', strtotime($this->create_date)) : null;
+            return isset($this->due_date) ? date('Y-m-d', strtotime($this->due_date)) : null;
         }
         set {
             $this->due_date = $value;
