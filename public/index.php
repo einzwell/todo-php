@@ -30,7 +30,7 @@ switch ($_POST['_method'] ?? $_SERVER['REQUEST_METHOD']) {
                 $completed = isset($_POST['completed']) && $_POST['completed'] === true;
                 $due_date = $_POST['due_date'] ?: null;
 
-                $todo = new Todo($user_id, $title, $description, $completed);
+                $todo = new Todo($user_id, $title, $description, $completed, $due_date);
                 if ($todo->create()) {
                     $success = 'Todo created successfully.';
                     redirect('index.php', 'Todo created successfully.', 'success');
