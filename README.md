@@ -10,6 +10,9 @@ Written in PHP and utilising MariaDB, It is designed to be a lightweight and eas
 This application is built as a mid-semester project for the course "Web-Based Programming" at Bina Nusantara University
 in 2025.
 
+## Demo
+A demo of this application is available at [todo.einzwell.dev](https://todo.einzwell.dev).
+
 ## Getting Started
 
 ### Requirements
