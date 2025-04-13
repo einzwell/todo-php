@@ -1,5 +1,6 @@
 volumes:
   dbdata:
+
 services:
   webserver:
     container_name: todo-web
@@ -12,8 +13,9 @@ services:
       - ./src:/var/www/src:z
       - ./public:/var/www/html:Z
     ports:
-      - "8000:80"
+      - "8080:80"
     env_file: .env
+
   database:
     container_name: todo-db
     image: mariadb
@@ -24,11 +26,12 @@ services:
     volumes:
       - dbdata:/var/lib/mysql
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
   phpmyadmin:
      container_name: todo-pma
      image: phpmyadmin/phpmyadmin
      ports:
-       - "8080:80"
+       - "8000:80"
      restart: always
      environment:
        PMA_HOST: database
