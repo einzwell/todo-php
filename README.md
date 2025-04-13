@@ -5,7 +5,7 @@ A simple CRUD application to manage a list of tasks (todos), written in PHP.
 ## Description
 
 Todo-PHP is a simple web application that allows users to create, read, update, and delete tasks (a.k.a. todos). 
-It is designed to be a lightweight and easy-to-use tool for managing personal tasks and to-do lists.
+Written in PHP and utilising MariaDB, It is designed to be a lightweight and easy-to-use tool for managing personal tasks and to-do lists.
 
 This application is built as a mid-semester project for the course "Web-Based Programming" at Bina Nusantara University
 in 2025.
