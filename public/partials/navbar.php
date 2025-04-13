@@ -12,6 +12,9 @@ function navbar(bool $logged_in = false): string {
                 <li class="nav-item">
                     <a class="nav-link active" href="account.php">Account</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="about.php">About</a>
+                </li>
                 <li class="nav-item ms-2" style="text-align: right">
                     <form action="index.php" method="POST">
                         <input type="hidden" name="csrf_token" value="$csrf">
@@ -27,6 +30,9 @@ function navbar(bool $logged_in = false): string {
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active" href="register.php">Register</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="about.php">About</a>
                 </li>
             </ul>
         HTML;
