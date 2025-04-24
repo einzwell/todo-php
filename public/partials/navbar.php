@@ -50,8 +50,6 @@ function navbar(bool $logged_in = false): string {
             </div>
         </nav>
     HTML;
-
-
 }
 
 echo navbar(isset($_SESSION['username']) && isset($_SESSION['user_id']));
