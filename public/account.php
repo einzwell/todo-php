@@ -93,7 +93,7 @@ switch ($_POST['_method'] ?? $_SERVER['REQUEST_METHOD']) {
 <body>
 <?php require_once(__DIR__ . '/partials/navbar.php');  ?>
 
-<div class="container">
+<div class="container pt-5">
 
     <div class="row mb-3 mt-4">
         <div class="col-md-12">

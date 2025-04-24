@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
 <?php require_once(__DIR__ . '/partials/navbar.php'); ?>
 
-<div class="container mt-5">
+<div class="container mt-5 pt-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card">

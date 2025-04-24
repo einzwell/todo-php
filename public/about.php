@@ -20,7 +20,7 @@ require_once(__DIR__ . '/../src/auth.php');
 <body>
 <?php require_once(__DIR__ . '/partials/navbar.php'); ?>
 
-<div class="container">
+<div class="container pt-5">
     <div class="row mb-3 mt-4">
         <div class="col-md-12">
             <div class="d-flex justify-content-between align-items-center">
