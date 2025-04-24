@@ -1,6 +1,9 @@
 volumes:
   dbdata:
 
+networks:
+  network:
+
 services:
   webserver:
     container_name: todo-web
@@ -11,7 +14,9 @@ services:
       - database
     volumes:
       - ./src:/var/www/src:z
-      - ./public:/var/www/html:Z
+      - ./public:/var/www/html:z
+    networks:
+      - network
     ports:
       - "8080:80"
     env_file: .env
@@ -23,6 +28,8 @@ services:
     env_file: .env
     ports:
       - "3306:3306"
+    networks:
+      - network
     volumes:
       - dbdata:/var/lib/mysql
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
@@ -36,5 +43,7 @@ services:
      restart: always
      environment:
        PMA_HOST: database
+     networks:
+       - network
      depends_on:
        - database
