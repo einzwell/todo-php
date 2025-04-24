@@ -37,8 +37,8 @@ cd todo-php
 podman-compose up -d --build
 ```
 
-If everything goes well, you should be able to access the application at [`http://localhost:8000`](http://localhost:8000). You'll need to register an account first before you can use the application.
-Additionally, PhpMyAdmin can be accessed at [`http://localhost:8080`](http://localhost:8080) (credentials depend on your `.env` configuration).
+If everything goes well, you should be able to access the application at [`http://localhost:8080`](http://localhost:8000). You'll need to register an account first before you can use the application.
+Additionally, PhpMyAdmin can be accessed at [`http://localhost:8000`](http://localhost:8080) (credentials depend on your `.env` configuration).
 
 * To stop the application, run:
 
