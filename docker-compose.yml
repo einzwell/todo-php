@@ -1,35 +1,45 @@
 volumes:
   dbdata:
 
-networks:
-  network:
-
 services:
   webserver:
     container_name: todo-web
+    restart: always
+    env_file: .env
+    ports:
+      - "8080:80"
+    depends_on:
+      - database
+    profiles:
+      - prod
+    build:
+        context: .
+        dockerfile: Dockerfile
+        target: prod
+
+  webserver-dev:
+    container_name: todo-web-dev
+    restart: always
+    env_file: .env
+    ports:
+      - "8080:80"
+    depends_on:
+      - database
+    profiles:
+      - dev
     build:
       context: .
       dockerfile: Dockerfile
-    depends_on:
-      - database
+      target: dev
     volumes:
       - ./src:/var/www/src:z
       - ./public:/var/www/html:z
-    networks:
-      - network
-    ports:
-      - "8080:80"
-    env_file: .env
 
   database:
     container_name: todo-db
     image: mariadb
     restart: always
     env_file: .env
-    ports:
-      - "3306:3306"
-    networks:
-      - network
     volumes:
       - dbdata:/var/lib/mysql
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
@@ -37,13 +47,9 @@ services:
   phpmyadmin:
      container_name: todo-pma
      image: phpmyadmin/phpmyadmin
+     restart: always
      env_file: .env
      ports:
        - "8000:80"
-     restart: always
-     environment:
-       PMA_HOST: database
-     networks:
-       - network
      depends_on:
        - database
