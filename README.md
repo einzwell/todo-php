@@ -20,7 +20,7 @@ A demo of this application is available at [todo.einzwell.dev](https://todo.einz
 [Docker](https://www.docker.com/get-started) or [Podman](https://podman.io/getting-started/installation) is required to run this application. Alternatively, you can run the application using XAMPP or MAMP
 (you're on your own though).
 
-### Setting up
+### Setting up for development
 
 * Clone this repository and change directory to the project folder
 
@@ -34,7 +34,7 @@ cd todo-php
 * Run `podman-compose` (or `docker-compose`)
 
 ```bash
-podman-compose up -d --build
+podman-compose --profile dev up -d --build
 ```
 
 If everything goes well, you should be able to access the application at [`http://localhost:8080`](http://localhost:8000). You'll need to register an account first before you can use the application.
